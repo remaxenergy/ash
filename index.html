@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>*~ my website ~*</title>
+    <style>
+      /* 1. GLOBAL FONT & OVERFLOW FIX */
+      html,
+      body {
+        overflow-x: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        font-family: Arial, Helvetica, sans-serif !important;
+      }
+
+      /* 2. BACKGROUND SETUP - Large 500px Dogs */
+      .myspace-safe-wrapper {
+        background-color: #000000;
+        background-image: url('https://i.imgur.com/Wdoa1xR.png') !important;
+        background-repeat: repeat !important;
+        background-attachment: fixed !important;
+        background-size: 500px auto !important;
+        color: #ffffff;
+        min-height: 100vh;
+        padding-bottom: 50px;
+        box-sizing: border-box;
+      }
+
+      /* 3. DESKTOP BREAKOUT MATH */
+      @media (min-width: 801px) {
+        .myspace-safe-wrapper {
+          width: 100vw;
+          position: relative;
+          left: 50%;
+          right: 50%;
+          margin-left: -50vw;
+          margin-right: -50vw;
+          padding-top: 80px;
+        }
+      }
+
+      /* 4. MAIN LAYOUT CONTAINER */
+      .profile-container {
+        display: flex;
+        flex-direction: row;
+        width: 95%;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 20px;
+        align-items: flex-start;
+      }
+
+      .left-column {
+        width: 280px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .right-column {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        min-width: 0;
+      }
+
+      /* 5. BOX STYLES */
+      .myspace-card {
+        background-color: rgba(0, 0, 0, 0.8);
+        border: 2px solid #ff9900;
+        padding: 15px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
+        box-sizing: border-box;
+      }
+
+      .card-header {
+        background-color: #ff9900;
+        color: #000000 !important;
+        font-weight: bold;
+        padding: 4px 8px;
+        margin: -15px -15px 15px -15px;
+        font-size: 13px;
+      }
+
+      /* 6. QUICK LINKS GRID */
+      .links-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        background-color: #111;
+        padding: 15px;
+        border: 1px solid #333;
+      }
+
+      .links-grid a {
+        color: yellow !important;
+        text-decoration: underline !important;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      /* 7. SIDEBAR & GLITTER */
+      .profile-pic {
+        width: 100%;
+        border: 1px solid #ff9900;
+        display: block;
+      }
+
+      .glitter-text {
+        background: url('https://media.giphy.com/media/l41YkxvU8c7J7Bba0/giphy.gif');
+        -webkit-background-clip: text;
+        color: transparent;
+        font-weight: bold;
+        font-size: 28px;
+        text-align: center;
+        font-family: 'Comic Sans MS', cursive !important;
+      }
+
+      .odometer-counter {
+        display: inline-block;
+        background: #000;
+        border: 3px inset #555;
+        padding: 5px;
+        margin-top: 10px;
+      }
+
+      .odometer-digit {
+        background: #111;
+        color: yellow;
+        font-family: 'Courier New', monospace !important;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 2px 6px;
+        margin: 0 1px;
+        border: 1px solid #333;
+        display: inline-block;
+      }
+
+      /* 8. MOBILE RESPONSIVE FIXES - THE MAGIC HAPPENS HERE */
+      @media (max-width: 800px) {
+        .myspace-safe-wrapper {
+          padding-top: 30px;
+          width: 100% !important;
+          margin-left: 0 !important;
+          left: 0 !important;
+        }
+
+        .profile-container {
+          /* FLIPS the order so Right Column is on top of Left Column */
+          flex-direction: column-reverse;
+          align-items: center;
+          width: 85%;
+        }
+
+        .left-column,
+        .right-column {
+          width: 100% !important;
+        }
+
+        /* HIDE THE PHOTO CARD ON MOBILE ONLY */
+        .mobile-hide-pic {
+          display: none !important;
+        }
+
+        .links-grid {
+          grid-template-columns: 1fr;
+        }
+
+        iframe {
+          width: 100% !important;
+          height: 500px !important;
+        }
+      }
+
+      /* 9. TOGGLE LOGIC & PACKETS VIEW */
+      #packets-view {
+        display: none;
+      }
+
+      #home-view {
+        display: block;
+      }
+
+      #packets-view:target {
+        display: block !important;
+      }
+
+      #packets-view:target~#home-view {
+        display: none !important;
+      }
+
+      .packets-list {
+        list-style-type: square;
+        color: #ff9900;
+        line-height: 2.2;
+        padding-left: 25px;
+        text-align: left;
+      }
+
+      .packets-list a {
+        color: yellow !important;
+        text-decoration: underline !important;
+        font-weight: bold;
+      }
+
+      .back-btn {
+        display: inline-block !important;
+        background-color: #ff9900 !important;
+        color: #000000 !important;
+        border: 4px outset #ffffff !important;
+        padding: 15px 30px !important;
+        font-weight: 900 !important;
+        text-decoration: none !important;
+        font-size: 16px !important;
+        margin-top: 25px !important;
+        text-align: center !important;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="myspace-safe-wrapper">
+      <div class="profile-container">
+
+        <div class="left-column">
+          <div class="myspace-card">
+            <div class="glitter-text">*~ my website ~*</div>
+          </div>
+
+          <div class="myspace-card mobile-hide-pic">
+            <img class="profile-pic" src="https://i.imgur.com/aVF60Zn.jpg" alt="Profile Picture">
+          </div>
+
+          <div class="myspace-card">
+            <div class="card-header">Now Playing</div>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX6MAQN3OnFEl?utm_source=generator" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+
+          <div class="myspace-card" style="text-align: center;">
+            <div class="card-header">Visitor Count</div>
+            <div class="odometer-counter">
+              <span class="odometer-digit">0</span><span class="odometer-digit">0</span><span class="odometer-digit">1</span><span class="odometer-digit">3</span><span class="odometer-digit">5</span><span class="odometer-digit">7</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="right-column">
+          <div class="myspace-card">
+            <marquee scrollamount="5" style="color: yellow; font-family: 'Comic Sans MS', cursive; font-size: 16px;">
+              * My time is blocked from 9-10 AM each morning for my power hour. *
+            </marquee>
+          </div>
+
+          <div class="myspace-card">
+            <div class="card-header">Quick Links</div>
+            <div class="links-grid">
+              <a href="https://scribehow.com/page/How-Tos__Us4hMeO8Sia1TSH_GBXViw" target="_blank">my how-to guides</a>
+              <a href="#packets-view">where can i find my buyer + seller packets?</a>
+              <a href="https://maxtech.boldtrail.com/dashboard" target="_blank">where is my sphere?</a>
+              <a href="https://drive.google.com/drive/folders/1QroKEectWCt5dCUXARVs8OkHHOA1xl5n?usp=drive_link" target="_blank">office logos</a>
+              <a href="https://calendly.com/remaxenergymediateam/listingphotos?back=1&month=2026-04" target="_blank">schedule photos with allison</a>
+              <a href="https://www.classicgamesarcade.com/" target="_blank">retro arcade games</a>
+            </div>
+          </div>
+
+          <div id="packets-view" class="myspace-card">
+            <div class="card-header">View Your Files</div>
+            <div style="background-color: #111; padding: 25px; text-align: left;">
+              <h4 style="color: yellow; font-family: 'Comic Sans MS', cursive; margin-top: 0; font-size: 16px;">Click your name below:</h4>
+              <ul class="packets-list">
+                <li><a href="https://drive.google.com/drive/folders/1dS-kDIO8CTeHlmDVoVa9fjRK6iDeoKin?usp=sharing" target="_blank">Braydon Keneda</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1gPr3dCZSt3I6YFLmiE9Kd5ZpLL9RCU_u?usp=sharing" target="_blank">Bri Doran</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1sYzJEb7TtV41Yo6bYefYhUcAN9GgpAU0?usp=sharing" target="_blank">Brian Orr</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1Ee3VPwaqjwjBtAVCL07zXsAjjkqxzswo?usp=sharing" target="_blank">Brian Woodward</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1QdmrHBfc-U737_4nu2vjopDqNNQRdn7x?usp=sharing" target="_blank">Caleb Dobbs</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1V2fwsBHP7YelE3crWkoiJS1MTaQFSXS7?usp=sharing" target="_blank">Carrie Lehi</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1AyxnKTs-5DtHcIkxnIju06KSrwC8ZUqP?usp=sharing" target="_blank">Cyra Shelton</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1uS-Z2zSNUjwKgsi3B6XeM98r9Fv_tLdV?usp=sharing" target="_blank">Donnie Woodard</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1rOKNzzX10mX7_UgEgZjOrtqlaA_l6TAn?usp=sharing" target="_blank">Ivan Auld</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1ullYJ9jEob-Xk6tryHIJU0TF9VLmNGjo?usp=sharing" target="_blank">Jamie Daubenspeck</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1uFjondx6jCA_hsLN45cuvIrUhRrnXP4M?usp=sharing" target="_blank">Jerry Teddy</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1OYc_RUcdheIEOSYgFbr_170HvYW4hI3N?usp=sharing" target="_blank">Krystin Shelton</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1AyrA42VlUL8N_9L0iMg0legMJIYSAOz1?usp=sharing" target="_blank">Leah Seely</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1_KNMtzCHhHCRdbY-SPM38W_6_orzGBBG?usp=sharing" target="_blank">Priscilla Hill</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1-WVgtn7Zzvf0zVNwMuyQ6KH5aoBQJwU_?usp=sharing" target="_blank">Ryan Lerma</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1RBEFNtFbO4j-4zNVxXDVVqt3ckzdHAS7?usp=sharing" target="_blank">Shellie Kelley</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1wDgSz0v_TJbgFhJ-gPNMgS_B1RdrQMsI?usp=sharing" target="_blank">Terri Pyle</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1NU7PzKF8AEC3oUWdgcsxMx-loyrcbtF7?usp=sharing" target="_blank">Tesia Brzozowske</a></li>
+                <li><a href="https://drive.google.com/drive/folders/13tiB5Lvs4hNat6ktpv58Q7euWQlW9QXB?usp=sharing" target="_blank">Tyler Clark</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1cT6_-6DvHnwB9iykBDCj_KqEv_K1Lp_4?usp=drive_link" target="_blank">Tyler Woodward</a></li>
+              </ul>
+              <a href="#" class="back-btn">
+                << BACK TO CALENDAR</a>
+            </div>
+          </div>
+
+          <div id="home-view" class="myspace-card">
+            <div class="card-header">My Calendar Space</div>
+            <div style="background: #fff; padding: 5px; border-radius: 8px;">
+              <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1u_MJljTz4MBdw378eD0NiiE1N_KK88p4lvTqxMVusQ25V7_2BOHQKMkPz0xKA1gOWyI43-3HO?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+
+</html>
